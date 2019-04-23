@@ -1324,6 +1324,15 @@ def sofa_preprocess(cfg):
                 filtered_groups.append({'group': group,
                                         'color': filter.color,
                                         'keyword': filter.keyword})
+        filtered_groups = []
+        if len(keyword_traces) > 0:
+            df_grouped = keyword_traces_viz.groupby('name')
+            for filter in cfg.keyword_filters:
+                group = keyword_traces_viz[keyword_traces_viz['name'].str.contains(
+                    filter.keyword)]
+                filtered_groups.append({'group': group,
+                                        'color': filter.color,
+                                        'keyword': filter.keyword})
     # ### hierarchical swarm generation
     try:
         swarm_groups = []
